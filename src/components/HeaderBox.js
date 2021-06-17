@@ -1,5 +1,6 @@
 import React from "react";
 import styled from "styled-components";
+import { Link } from "react-router-dom";
 import remoters from "../images/remoters.png";
 import remotersx2 from "../images/remoters@2x.png";
 import search from "../images/search.png";
@@ -86,11 +87,17 @@ const HumanImg = styled.img`
 `;
 
 function HeaderBox() {
+  const onClickHandle = () => {
+    alert("검색 버튼 눌러짐");
+  };
+
   return (
     <Container>
       <Header>
         <img src={remoters} alt="header.img" />
-        <RegistrationBtn>회사 등록하기</RegistrationBtn>
+        <Link to="/about">
+          <RegistrationBtn>회사 등록하기</RegistrationBtn>
+        </Link>
       </Header>
       <ContentBox>
         <div>
@@ -98,7 +105,7 @@ function HeaderBox() {
           <p>[명사] 시간과 공간의 제약을 받지않고 일하는 사람</p>
           <InputBox>
             <input />
-            <img src={search} alt="search" />
+            <img onClick={onClickHandle} src={search} alt="search" />
           </InputBox>
         </div>
         <HumanImg src={wfh} alt="img" />
