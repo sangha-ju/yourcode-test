@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import { Link } from "react-router-dom";
+
+//images
 import remoters from "../images/remoters.png";
 import remotersx2 from "../images/remoters@2x.png";
 import search from "../images/search.png";
 import wfh from "../images/wfh-1.png";
 
-const Container = styled.section`
+const HeaderContainer = styled.section`
   width: 1450px;
   height: 750px;
   background-color: rgba(98, 115, 232, 0.1);
@@ -92,7 +94,7 @@ function HeaderBox() {
   };
 
   return (
-    <Container>
+    <HeaderContainer>
       <Header>
         <img src={remoters} alt="header.img" />
         <Link to="/about">
@@ -110,7 +112,7 @@ function HeaderBox() {
         </div>
         <HumanImg src={wfh} alt="img" />
       </ContentBox>
-    </Container>
+    </HeaderContainer>
   );
 }
 
