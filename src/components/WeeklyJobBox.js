@@ -90,7 +90,18 @@ const SupportBtn = styled.button`
   cursor: pointer;
 `;
 
-const InfoBox = styled.div`
+const MicroInfoBox = styled.div`
+  display: ${(props) => (props.microtoggle ? "" : "none")};
+  width: 96%;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 20px;
+`;
+
+const ZigzagInfoBox = styled.div`
+  display: ${(props) => (props.zigzagtoggle ? "" : "none")};
   width: 96%;
   padding: 20px;
   background-color: #ffffff;
@@ -103,6 +114,8 @@ function WeeklyJobBox() {
   const [data, setData] = useState([]);
   const [leaveMicro, setLeaveMicro] = useState(false);
   const [leaveZizag, setLeaveZigzag] = useState(false);
+  const [microToggle, setMicroToggle] = useState(false);
+  const [zigzagToggle, setZigzagToggle] = useState(false);
 
   const getData = async () => {
     const resp = await fetch(
@@ -126,13 +139,21 @@ function WeeklyJobBox() {
     setLeaveZigzag(true);
   };
 
+  const microToggleHandle = () => {
+    setMicroToggle(!microToggle);
+  };
+
+  const zigzagToggleHandle = () => {
+    setZigzagToggle(!zigzagToggle);
+  };
+
   const clickSupport = () => {
     alert("지원이 완료 되었습니다.");
   };
 
   return (
     <WeeklyJob>
-      <CardBox onMouseOver={microOverHandle}>
+      <CardBox onMouseOver={microOverHandle} onClick={microToggleHandle}>
         <ImgBox>
           <img src={micro} alt="micro-img" />
         </ImgBox>
@@ -158,8 +179,14 @@ function WeeklyJobBox() {
           )}
         </DateBox>
       </CardBox>
-      {/* {todayJobs ? <InfoBox>{todayJobs[0].contents}</InfoBox> : ""} */}
-      <CardBox onMouseOver={zigzagOverHandle}>
+      {weeklyJobs && microToggle ? (
+        <MicroInfoBox microtoggle={microToggle}>
+          {weeklyJobs[0].contents}
+        </MicroInfoBox>
+      ) : (
+        ""
+      )}
+      <CardBox onMouseOver={zigzagOverHandle} onClick={zigzagToggleHandle}>
         <ImgBox>
           <img src={zigzag} alt="kakaoBank-img" />
         </ImgBox>
@@ -185,6 +212,13 @@ function WeeklyJobBox() {
           )}
         </DateBox>
       </CardBox>
+      {weeklyJobs && zigzagToggle ? (
+        <ZigzagInfoBox zigzagtoggle={zigzagToggle}>
+          {weeklyJobs[1].contents}
+        </ZigzagInfoBox>
+      ) : (
+        ""
+      )}
     </WeeklyJob>
   );
 }

@@ -90,7 +90,18 @@ const SupportBtn = styled.button`
   cursor: pointer;
 `;
 
-const InfoBox = styled.div`
+const GitInfoBox = styled.div`
+  display: ${(props) => (props.gittoggle ? "" : "none")};
+  width: 96%;
+  padding: 20px;
+  background-color: #ffffff;
+  border-radius: 10px;
+  margin-bottom: 20px;
+  font-size: 20px;
+`;
+
+const KakaoInfoBox = styled.div`
+  display: ${(props) => (props.kakaotoggle ? "" : "none")};
   width: 96%;
   padding: 20px;
   background-color: #ffffff;
@@ -103,6 +114,8 @@ function TodayJobBox() {
   const [data, setData] = useState([]);
   const [leaveGit, setLeaveGit] = useState(false);
   const [leaveKakao, setLeaveKakao] = useState(false);
+  const [gitToggle, setGitToggle] = useState(false);
+  const [kakaoToggle, setKakaoToggle] = useState(false);
 
   const getData = async () => {
     const resp = await fetch(
@@ -126,13 +139,21 @@ function TodayJobBox() {
     setLeaveKakao(true);
   };
 
+  const gitToggleHandle = () => {
+    setGitToggle(!gitToggle);
+  };
+
+  const kakaoToggleHandle = () => {
+    setKakaoToggle(!kakaoToggle);
+  };
+
   const clickSupport = () => {
     alert("지원이 완료 되었습니다.");
   };
 
   return (
     <TodayJob>
-      <CardBox onMouseOver={gitOverHandle}>
+      <CardBox onMouseOver={gitOverHandle} onClick={gitToggleHandle}>
         <ImgBox>
           <img src={git} alt="git-img" />
         </ImgBox>
@@ -158,8 +179,12 @@ function TodayJobBox() {
           )}
         </DateBox>
       </CardBox>
-      {/* {todayJobs ? <InfoBox>{todayJobs[0].contents}</InfoBox> : ""} */}
-      <CardBox onMouseOver={kakaoOverHandle}>
+      {todayJobs && gitToggle ? (
+        <GitInfoBox gittoggle={gitToggle}>{todayJobs[0].contents}</GitInfoBox>
+      ) : (
+        ""
+      )}
+      <CardBox onMouseOver={kakaoOverHandle} onClick={kakaoToggleHandle}>
         <ImgBox>
           <img src={kakaoBank} alt="kakaoBank-img" />
         </ImgBox>
@@ -185,6 +210,13 @@ function TodayJobBox() {
           )}
         </DateBox>
       </CardBox>
+      {todayJobs && kakaoToggle ? (
+        <KakaoInfoBox kakaotoggle={kakaoToggle}>
+          {todayJobs[1].contents}
+        </KakaoInfoBox>
+      ) : (
+        ""
+      )}
     </TodayJob>
   );
 }
