@@ -1,16 +1,22 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 
 // images
 import unCheck from "../images/group-3.png";
 import Check from "../images/group-4.png";
+import TodayJobBox from "./TodayJobBox";
 
 const ContentsContainer = styled.section`
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
   width: 1450px;
+  padding-bottom: 170px;
   background-color: #f9f9f9;
 `;
 
-const TitleBox = styled.div`
+const TodayJobs = styled.div`
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -36,23 +42,35 @@ const TitleBox = styled.div`
 
 const UnCheckImg = styled.img`
   width: 20px;
-  margin-right: 5px;
+  margin-right: 20px;
 `;
 
 const CheckImg = styled.img`
   width: 20px;
+  margin-right: 20px;
 `;
 
 function ContentsBox() {
+  const [check, setCheck] = useState(false);
+
+  const onCheckHandle = () => {
+    setCheck(!check);
+  };
+
   return (
     <ContentsContainer>
-      <TitleBox>
+      <TodayJobs>
         <strong>오늘 올라온 잡</strong>
-        <div>
-          <UnCheckImg src={unCheck} alt="unCheck" />
+        <div onClick={onCheckHandle}>
+          {check ? (
+            <CheckImg src={Check} alt="check" />
+          ) : (
+            <UnCheckImg src={unCheck} alt="unCheck" />
+          )}
           <span>Non-IT-잡만 보기</span>
         </div>
-      </TitleBox>
+      </TodayJobs>
+      <TodayJobBox />
     </ContentsContainer>
   );
 }
