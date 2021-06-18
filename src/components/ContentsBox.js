@@ -1,10 +1,11 @@
 import React, { useState } from "react";
 import styled from "styled-components";
+import TodayJobBox from "./TodayJobBox";
+import WeeklyJobBox from "./WeeklyJobBox";
 
 // images
 import unCheck from "../images/group-3.png";
 import Check from "../images/group-4.png";
-import TodayJobBox from "./TodayJobBox";
 
 const ContentsContainer = styled.section`
   display: flex;
@@ -50,6 +51,20 @@ const CheckImg = styled.img`
   margin-right: 20px;
 `;
 
+const WeeklyJobs = styled.div`
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  width: 100%;
+  margin-top: 175px;
+
+  strong {
+    margin-left: 200px;
+    font-size: 25px;
+    font-weight: 500;
+  }
+`;
+
 function ContentsBox() {
   const [check, setCheck] = useState(false);
 
@@ -71,6 +86,10 @@ function ContentsBox() {
         </div>
       </TodayJobs>
       <TodayJobBox />
+      <WeeklyJobs>
+        <strong>이번주 올라온 잡</strong>
+      </WeeklyJobs>
+      <WeeklyJobBox />
     </ContentsContainer>
   );
 }

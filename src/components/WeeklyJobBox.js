@@ -3,10 +3,10 @@ import styled from "styled-components";
 import Moment from "react-moment";
 
 // images
-import git from "../images/git.png";
-import kakaoBank from "../images/kakaoBank.png";
+import micro from "../images/micro.png";
+import zigzag from "../images/zigzag.png";
 
-const TodayJob = styled.div`
+const WeeklyJob = styled.div`
   width: 1055px;
   margin-top: 30px;
 `;
@@ -99,10 +99,10 @@ const InfoBox = styled.div`
   font-size: 20px;
 `;
 
-function TodayJobBox() {
+function WeeklyJobBox() {
   const [data, setData] = useState([]);
-  const [leaveGit, setLeaveGit] = useState(false);
-  const [leaveKakao, setLeaveKakao] = useState(false);
+  const [leaveMicro, setLeaveMicro] = useState(false);
+  const [leaveZizag, setLeaveZigzag] = useState(false);
 
   const getData = async () => {
     const resp = await fetch(
@@ -116,14 +116,14 @@ function TodayJobBox() {
     getData();
   }, []);
 
-  const { todayJobs } = data;
+  const { weeklyJobs } = data;
 
-  const gitOverHandle = () => {
-    setLeaveGit(true);
+  const microOverHandle = () => {
+    setLeaveMicro(true);
   };
 
-  const kakaoOverHandle = () => {
-    setLeaveKakao(true);
+  const zigzagOverHandle = () => {
+    setLeaveZigzag(true);
   };
 
   const clickSupport = () => {
@@ -131,27 +131,27 @@ function TodayJobBox() {
   };
 
   return (
-    <TodayJob>
-      <CardBox onMouseOver={gitOverHandle}>
+    <WeeklyJob>
+      <CardBox onMouseOver={microOverHandle}>
         <ImgBox>
-          <img src={git} alt="git-img" />
+          <img src={micro} alt="micro-img" />
         </ImgBox>
-        {todayJobs && (
+        {weeklyJobs && (
           <TextBox>
-            <Name>{todayJobs[0].name}</Name>
-            <Position>{todayJobs[0].position}</Position>
-            {todayJobs[0].tags.map((tag) => (
+            <Name>{weeklyJobs[0].name}</Name>
+            <Position>{weeklyJobs[0].position}</Position>
+            {weeklyJobs[0].tags.map((tag) => (
               <Tags>{tag}</Tags>
             ))}
           </TextBox>
         )}
         <DateBox>
-          {todayJobs && (
+          {weeklyJobs && (
             <Moment fromNow ago>
-              {todayJobs[0].date}
+              {weeklyJobs[0].date}
             </Moment>
           )}
-          {leaveGit ? (
+          {leaveMicro ? (
             <SupportBtn onClick={clickSupport}>지원하기</SupportBtn>
           ) : (
             ""
@@ -159,34 +159,34 @@ function TodayJobBox() {
         </DateBox>
       </CardBox>
       {/* {todayJobs ? <InfoBox>{todayJobs[0].contents}</InfoBox> : ""} */}
-      <CardBox onMouseOver={kakaoOverHandle}>
+      <CardBox onMouseOver={zigzagOverHandle}>
         <ImgBox>
-          <img src={kakaoBank} alt="kakaoBank-img" />
+          <img src={zigzag} alt="kakaoBank-img" />
         </ImgBox>
-        {todayJobs && (
+        {weeklyJobs && (
           <TextBox>
-            <Name>{todayJobs[1].name}</Name>
-            <Position>{todayJobs[1].position}</Position>
-            {todayJobs[1].tags.map((tag) => (
+            <Name>{weeklyJobs[1].name}</Name>
+            <Position>{weeklyJobs[1].position}</Position>
+            {weeklyJobs[1].tags.map((tag) => (
               <Tags>{tag}</Tags>
             ))}
           </TextBox>
         )}
         <DateBox>
-          {todayJobs && (
+          {weeklyJobs && (
             <Moment fromNow ago>
-              {todayJobs[1].date}
+              {weeklyJobs[1].date}
             </Moment>
           )}
-          {leaveKakao ? (
+          {leaveZizag ? (
             <SupportBtn onClick={clickSupport}>지원하기</SupportBtn>
           ) : (
             ""
           )}
         </DateBox>
       </CardBox>
-    </TodayJob>
+    </WeeklyJob>
   );
 }
 
-export default TodayJobBox;
+export default WeeklyJobBox;
