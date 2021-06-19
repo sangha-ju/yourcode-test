@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Moment from "react-moment";
+import { SlideDown } from "react-slidedown";
+import "react-slidedown/lib/slidedown.css";
 
 // images
 import git from "../images/git.png";
@@ -153,7 +155,7 @@ function TodayJobBox() {
 
   return (
     <TodayJob>
-      <CardBox onMouseOver={gitOverHandle} onClick={gitToggleHandle}>
+      <CardBox onMouseLeave={gitOverHandle} onClick={gitToggleHandle}>
         <ImgBox>
           <img src={git} alt="git-img" />
         </ImgBox>
@@ -179,12 +181,14 @@ function TodayJobBox() {
           )}
         </DateBox>
       </CardBox>
-      {todayJobs && gitToggle ? (
-        <GitInfoBox gittoggle={gitToggle}>{todayJobs[0].contents}</GitInfoBox>
-      ) : (
-        ""
-      )}
-      <CardBox onMouseOver={kakaoOverHandle} onClick={kakaoToggleHandle}>
+      <SlideDown>
+        {todayJobs && gitToggle ? (
+          <GitInfoBox gittoggle={gitToggle}>{todayJobs[0].contents}</GitInfoBox>
+        ) : (
+          ""
+        )}
+      </SlideDown>
+      <CardBox onMouseLeave={kakaoOverHandle} onClick={kakaoToggleHandle}>
         <ImgBox>
           <img src={kakaoBank} alt="kakaoBank-img" />
         </ImgBox>
@@ -210,13 +214,15 @@ function TodayJobBox() {
           )}
         </DateBox>
       </CardBox>
-      {todayJobs && kakaoToggle ? (
-        <KakaoInfoBox kakaotoggle={kakaoToggle}>
-          {todayJobs[1].contents}
-        </KakaoInfoBox>
-      ) : (
-        ""
-      )}
+      <SlideDown>
+        {todayJobs && kakaoToggle ? (
+          <KakaoInfoBox kakaotoggle={kakaoToggle}>
+            {todayJobs[1].contents}
+          </KakaoInfoBox>
+        ) : (
+          ""
+        )}
+      </SlideDown>
     </TodayJob>
   );
 }

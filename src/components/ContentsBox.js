@@ -6,6 +6,7 @@ import WeeklyJobBox from "./WeeklyJobBox";
 // images
 import unCheck from "../images/group-3.png";
 import Check from "../images/group-4.png";
+import ScrollTopBtn from "./ScrollTopBtn";
 
 const ContentsContainer = styled.section`
   display: flex;
@@ -90,6 +91,7 @@ function ContentsBox() {
         <strong>이번주 올라온 잡</strong>
       </WeeklyJobs>
       <WeeklyJobBox />
+      <ScrollTopBtn />
     </ContentsContainer>
   );
 }

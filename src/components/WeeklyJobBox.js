@@ -1,6 +1,8 @@
 import React, { useEffect, useState } from "react";
 import styled from "styled-components";
 import Moment from "react-moment";
+import { SlideDown } from "react-slidedown";
+import "react-slidedown/lib/slidedown.css";
 
 // images
 import micro from "../images/micro.png";
@@ -132,7 +134,7 @@ function WeeklyJobBox() {
   const { weeklyJobs } = data;
 
   const microOverHandle = () => {
-    setLeaveMicro(true);
+    setLeaveMicro(!leaveMicro);
   };
 
   const zigzagOverHandle = () => {
@@ -153,7 +155,7 @@ function WeeklyJobBox() {
 
   return (
     <WeeklyJob>
-      <CardBox onMouseOver={microOverHandle} onClick={microToggleHandle}>
+      <CardBox onMouseLeave={microOverHandle} onClick={microToggleHandle}>
         <ImgBox>
           <img src={micro} alt="micro-img" />
         </ImgBox>
@@ -179,14 +181,16 @@ function WeeklyJobBox() {
           )}
         </DateBox>
       </CardBox>
-      {weeklyJobs && microToggle ? (
-        <MicroInfoBox microtoggle={microToggle}>
-          {weeklyJobs[0].contents}
-        </MicroInfoBox>
-      ) : (
-        ""
-      )}
-      <CardBox onMouseOver={zigzagOverHandle} onClick={zigzagToggleHandle}>
+      <SlideDown>
+        {weeklyJobs && microToggle ? (
+          <MicroInfoBox microtoggle={microToggle}>
+            {weeklyJobs[0].contents}
+          </MicroInfoBox>
+        ) : (
+          ""
+        )}
+      </SlideDown>
+      <CardBox onMouseLeave={zigzagOverHandle} onClick={zigzagToggleHandle}>
         <ImgBox>
           <img src={zigzag} alt="kakaoBank-img" />
         </ImgBox>
@@ -212,13 +216,15 @@ function WeeklyJobBox() {
           )}
         </DateBox>
       </CardBox>
-      {weeklyJobs && zigzagToggle ? (
-        <ZigzagInfoBox zigzagtoggle={zigzagToggle}>
-          {weeklyJobs[1].contents}
-        </ZigzagInfoBox>
-      ) : (
-        ""
-      )}
+      <SlideDown>
+        {weeklyJobs && zigzagToggle ? (
+          <ZigzagInfoBox zigzagtoggle={zigzagToggle}>
+            {weeklyJobs[1].contents}
+          </ZigzagInfoBox>
+        ) : (
+          ""
+        )}
+      </SlideDown>
     </WeeklyJob>
   );
 }
