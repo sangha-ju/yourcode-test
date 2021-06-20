@@ -33,8 +33,14 @@ const CardBox = styled.div`
   }
 `;
 
+const InfoBox = styled.div`
+  display: flex;
+  align-items: center;
+  width: 80%;
+`;
+
 const ImgBox = styled.div`
-  width: 15%;
+  width: 12%;
   padding-left: 30px;
 
   img {
@@ -43,7 +49,8 @@ const ImgBox = styled.div`
 `;
 
 const TextBox = styled.div`
-  width: 55%;
+  width: 65%;
+  padding-left: 30px;
 `;
 
 const Name = styled.p`
@@ -73,11 +80,7 @@ const Tags = styled.button`
 `;
 
 const DateBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 30%;
-  padding-right: 30px;
+  width: 8%;
 `;
 
 const SupportBtn = styled.button`
@@ -134,7 +137,7 @@ function WeeklyJobBox() {
   const { weeklyJobs } = data;
 
   const microOverHandle = () => {
-    setLeaveMicro(!leaveMicro);
+    setLeaveMicro(true);
   };
 
   const zigzagOverHandle = () => {
@@ -155,31 +158,33 @@ function WeeklyJobBox() {
 
   return (
     <WeeklyJob>
-      <CardBox onMouseLeave={microOverHandle} onClick={microToggleHandle}>
-        <ImgBox>
-          <img src={micro} alt="micro-img" />
-        </ImgBox>
-        {weeklyJobs && (
-          <TextBox>
-            <Name>{weeklyJobs[0].name}</Name>
-            <Position>{weeklyJobs[0].position}</Position>
-            {weeklyJobs[0].tags.map((tag) => (
-              <Tags>{tag}</Tags>
-            ))}
-          </TextBox>
-        )}
-        <DateBox>
+      <CardBox onMouseOver={microOverHandle}>
+        <InfoBox onClick={microToggleHandle}>
+          <ImgBox>
+            <img src={micro} alt="micro-img" />
+          </ImgBox>
           {weeklyJobs && (
-            <Moment fromNow ago>
-              {weeklyJobs[0].date}
-            </Moment>
+            <TextBox>
+              <Name>{weeklyJobs[0].name}</Name>
+              <Position>{weeklyJobs[0].position}</Position>
+              {weeklyJobs[0].tags.map((tag) => (
+                <Tags>{tag}</Tags>
+              ))}
+            </TextBox>
           )}
-          {leaveMicro ? (
-            <SupportBtn onClick={clickSupport}>지원하기</SupportBtn>
-          ) : (
-            ""
-          )}
-        </DateBox>
+          <DateBox>
+            {weeklyJobs && (
+              <Moment fromNow ago>
+                {weeklyJobs[0].date}
+              </Moment>
+            )}
+          </DateBox>
+        </InfoBox>
+        {leaveMicro ? (
+          <SupportBtn onClick={clickSupport}>지원하기</SupportBtn>
+        ) : (
+          ""
+        )}
       </CardBox>
       <SlideDown>
         {weeklyJobs && microToggle ? (
@@ -190,31 +195,33 @@ function WeeklyJobBox() {
           ""
         )}
       </SlideDown>
-      <CardBox onMouseLeave={zigzagOverHandle} onClick={zigzagToggleHandle}>
-        <ImgBox>
-          <img src={zigzag} alt="kakaoBank-img" />
-        </ImgBox>
-        {weeklyJobs && (
-          <TextBox>
-            <Name>{weeklyJobs[1].name}</Name>
-            <Position>{weeklyJobs[1].position}</Position>
-            {weeklyJobs[1].tags.map((tag) => (
-              <Tags>{tag}</Tags>
-            ))}
-          </TextBox>
-        )}
-        <DateBox>
+      <CardBox onMouseOver={zigzagOverHandle}>
+        <InfoBox onClick={zigzagToggleHandle}>
+          <ImgBox>
+            <img src={zigzag} alt="kakaoBank-img" />
+          </ImgBox>
           {weeklyJobs && (
-            <Moment fromNow ago>
-              {weeklyJobs[1].date}
-            </Moment>
+            <TextBox>
+              <Name>{weeklyJobs[1].name}</Name>
+              <Position>{weeklyJobs[1].position}</Position>
+              {weeklyJobs[1].tags.map((tag) => (
+                <Tags>{tag}</Tags>
+              ))}
+            </TextBox>
           )}
-          {leaveZizag ? (
-            <SupportBtn onClick={clickSupport}>지원하기</SupportBtn>
-          ) : (
-            ""
-          )}
-        </DateBox>
+          <DateBox>
+            {weeklyJobs && (
+              <Moment fromNow ago>
+                {weeklyJobs[1].date}
+              </Moment>
+            )}
+          </DateBox>
+        </InfoBox>
+        {leaveZizag ? (
+          <SupportBtn onClick={clickSupport}>지원하기</SupportBtn>
+        ) : (
+          ""
+        )}
       </CardBox>
       <SlideDown>
         {weeklyJobs && zigzagToggle ? (

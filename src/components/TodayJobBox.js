@@ -33,8 +33,14 @@ const CardBox = styled.div`
   }
 `;
 
+const InfoBox = styled.div`
+  display: flex;
+  align-items: center;
+  width: 80%;
+`;
+
 const ImgBox = styled.div`
-  width: 15%;
+  width: 12%;
   padding-left: 30px;
 
   img {
@@ -43,7 +49,8 @@ const ImgBox = styled.div`
 `;
 
 const TextBox = styled.div`
-  width: 55%;
+  width: 65%;
+  padding-left: 30px;
 `;
 
 const Name = styled.p`
@@ -73,11 +80,7 @@ const Tags = styled.button`
 `;
 
 const DateBox = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  width: 30%;
-  padding-right: 30px;
+  width: 8%;
 `;
 
 const SupportBtn = styled.button`
@@ -155,31 +158,33 @@ function TodayJobBox() {
 
   return (
     <TodayJob>
-      <CardBox onMouseLeave={gitOverHandle} onClick={gitToggleHandle}>
-        <ImgBox>
-          <img src={git} alt="git-img" />
-        </ImgBox>
-        {todayJobs && (
-          <TextBox>
-            <Name>{todayJobs[0].name}</Name>
-            <Position>{todayJobs[0].position}</Position>
-            {todayJobs[0].tags.map((tag) => (
-              <Tags>{tag}</Tags>
-            ))}
-          </TextBox>
-        )}
-        <DateBox>
+      <CardBox onMouseOver={gitOverHandle}>
+        <InfoBox onClick={gitToggleHandle}>
+          <ImgBox>
+            <img src={git} alt="git-img" />
+          </ImgBox>
           {todayJobs && (
-            <Moment fromNow ago>
-              {todayJobs[0].date}
-            </Moment>
+            <TextBox>
+              <Name>{todayJobs[0].name}</Name>
+              <Position>{todayJobs[0].position}</Position>
+              {todayJobs[0].tags.map((tag) => (
+                <Tags>{tag}</Tags>
+              ))}
+            </TextBox>
           )}
-          {leaveGit ? (
-            <SupportBtn onClick={clickSupport}>지원하기</SupportBtn>
-          ) : (
-            ""
-          )}
-        </DateBox>
+          <DateBox>
+            {todayJobs && (
+              <Moment fromNow ago>
+                {todayJobs[0].date}
+              </Moment>
+            )}
+          </DateBox>
+        </InfoBox>
+        {leaveGit ? (
+          <SupportBtn onClick={clickSupport}>지원하기</SupportBtn>
+        ) : (
+          ""
+        )}
       </CardBox>
       <SlideDown>
         {todayJobs && gitToggle ? (
@@ -188,31 +193,33 @@ function TodayJobBox() {
           ""
         )}
       </SlideDown>
-      <CardBox onMouseLeave={kakaoOverHandle} onClick={kakaoToggleHandle}>
-        <ImgBox>
-          <img src={kakaoBank} alt="kakaoBank-img" />
-        </ImgBox>
-        {todayJobs && (
-          <TextBox>
-            <Name>{todayJobs[1].name}</Name>
-            <Position>{todayJobs[1].position}</Position>
-            {todayJobs[1].tags.map((tag) => (
-              <Tags>{tag}</Tags>
-            ))}
-          </TextBox>
-        )}
-        <DateBox>
+      <CardBox onMouseOver={kakaoOverHandle}>
+        <InfoBox onClick={kakaoToggleHandle}>
+          <ImgBox>
+            <img src={kakaoBank} alt="kakaoBank-img" />
+          </ImgBox>
           {todayJobs && (
-            <Moment fromNow ago>
-              {todayJobs[1].date}
-            </Moment>
+            <TextBox>
+              <Name>{todayJobs[1].name}</Name>
+              <Position>{todayJobs[1].position}</Position>
+              {todayJobs[1].tags.map((tag) => (
+                <Tags>{tag}</Tags>
+              ))}
+            </TextBox>
           )}
-          {leaveKakao ? (
-            <SupportBtn onClick={clickSupport}>지원하기</SupportBtn>
-          ) : (
-            ""
-          )}
-        </DateBox>
+          <DateBox>
+            {todayJobs && (
+              <Moment fromNow ago>
+                {todayJobs[1].date}
+              </Moment>
+            )}
+          </DateBox>
+        </InfoBox>
+        {leaveKakao ? (
+          <SupportBtn onClick={clickSupport}>지원하기</SupportBtn>
+        ) : (
+          ""
+        )}
       </CardBox>
       <SlideDown>
         {todayJobs && kakaoToggle ? (
