@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Moment from "react-moment";
 import { SlideDown } from "react-slidedown";
@@ -115,26 +115,22 @@ const KakaoInfoBox = styled.div`
   font-size: 20px;
 `;
 
-function TodayJobBox() {
-  const [data, setData] = useState([]);
+function TodayJobBox({
+  gitName,
+  gitPosition,
+  gitTags,
+  gitDate,
+  gitContents,
+  kakaoName,
+  kakaoPosition,
+  kakaoTags,
+  kakaoDate,
+  kakaoContents,
+}) {
   const [leaveGit, setLeaveGit] = useState(false);
   const [leaveKakao, setLeaveKakao] = useState(false);
   const [gitToggle, setGitToggle] = useState(false);
   const [kakaoToggle, setKakaoToggle] = useState(false);
-
-  const getData = async () => {
-    const resp = await fetch(
-      "https://9ka6d9cy9f.execute-api.ap-northeast-2.amazonaws.com/default/getYourcodeInterviewData",
-    );
-    const jsonData = await resp.json();
-    setData(jsonData);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const { todayJobs } = data;
 
   const gitOverHandle = () => {
     setLeaveGit(true);
@@ -163,21 +159,17 @@ function TodayJobBox() {
           <ImgBox>
             <img src={git} alt="git-img" />
           </ImgBox>
-          {todayJobs && (
-            <TextBox>
-              <Name>{todayJobs[0].name}</Name>
-              <Position>{todayJobs[0].position}</Position>
-              {todayJobs[0].tags.map((tag) => (
-                <Tags>{tag}</Tags>
-              ))}
-            </TextBox>
-          )}
+          <TextBox>
+            <Name>{gitName}</Name>
+            <Position>{gitPosition}</Position>
+            {gitTags.map((tag) => (
+              <Tags>{tag}</Tags>
+            ))}
+          </TextBox>
           <DateBox>
-            {todayJobs && (
-              <Moment fromNow ago>
-                {todayJobs[0].date}
-              </Moment>
-            )}
+            <Moment fromNow ago>
+              {gitDate}
+            </Moment>
           </DateBox>
         </InfoBox>
         {leaveGit ? (
@@ -187,8 +179,8 @@ function TodayJobBox() {
         )}
       </CardBox>
       <SlideDown>
-        {todayJobs && gitToggle ? (
-          <GitInfoBox gittoggle={gitToggle}>{todayJobs[0].contents}</GitInfoBox>
+        {gitToggle ? (
+          <GitInfoBox gittoggle={gitToggle}>{gitContents}</GitInfoBox>
         ) : (
           ""
         )}
@@ -198,21 +190,17 @@ function TodayJobBox() {
           <ImgBox>
             <img src={kakaoBank} alt="kakaoBank-img" />
           </ImgBox>
-          {todayJobs && (
-            <TextBox>
-              <Name>{todayJobs[1].name}</Name>
-              <Position>{todayJobs[1].position}</Position>
-              {todayJobs[1].tags.map((tag) => (
-                <Tags>{tag}</Tags>
-              ))}
-            </TextBox>
-          )}
+          <TextBox>
+            <Name>{kakaoName}</Name>
+            <Position>{kakaoPosition}</Position>
+            {kakaoTags.map((tag) => (
+              <Tags>{tag}</Tags>
+            ))}
+          </TextBox>
           <DateBox>
-            {todayJobs && (
-              <Moment fromNow ago>
-                {todayJobs[1].date}
-              </Moment>
-            )}
+            <Moment fromNow ago>
+              {kakaoDate}
+            </Moment>
           </DateBox>
         </InfoBox>
         {leaveKakao ? (
@@ -222,10 +210,8 @@ function TodayJobBox() {
         )}
       </CardBox>
       <SlideDown>
-        {todayJobs && kakaoToggle ? (
-          <KakaoInfoBox kakaotoggle={kakaoToggle}>
-            {todayJobs[1].contents}
-          </KakaoInfoBox>
+        {kakaoToggle ? (
+          <KakaoInfoBox kakaotoggle={kakaoToggle}>{kakaoContents}</KakaoInfoBox>
         ) : (
           ""
         )}

@@ -1,4 +1,4 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import Moment from "react-moment";
 import { SlideDown } from "react-slidedown";
@@ -115,26 +115,22 @@ const ZigzagInfoBox = styled.div`
   font-size: 20px;
 `;
 
-function WeeklyJobBox() {
-  const [data, setData] = useState([]);
+function WeeklyJobBox({
+  microName,
+  microPosition,
+  microTags,
+  microDate,
+  microContents,
+  zigzagName,
+  zigzagPosition,
+  zigzagTags,
+  zigzagDate,
+  zigzagContents,
+}) {
   const [leaveMicro, setLeaveMicro] = useState(false);
   const [leaveZizag, setLeaveZigzag] = useState(false);
   const [microToggle, setMicroToggle] = useState(false);
   const [zigzagToggle, setZigzagToggle] = useState(false);
-
-  const getData = async () => {
-    const resp = await fetch(
-      "https://9ka6d9cy9f.execute-api.ap-northeast-2.amazonaws.com/default/getYourcodeInterviewData",
-    );
-    const jsonData = await resp.json();
-    setData(jsonData);
-  };
-
-  useEffect(() => {
-    getData();
-  }, []);
-
-  const { weeklyJobs } = data;
 
   const microOverHandle = () => {
     setLeaveMicro(true);
@@ -163,21 +159,17 @@ function WeeklyJobBox() {
           <ImgBox>
             <img src={micro} alt="micro-img" />
           </ImgBox>
-          {weeklyJobs && (
-            <TextBox>
-              <Name>{weeklyJobs[0].name}</Name>
-              <Position>{weeklyJobs[0].position}</Position>
-              {weeklyJobs[0].tags.map((tag) => (
-                <Tags>{tag}</Tags>
-              ))}
-            </TextBox>
-          )}
+          <TextBox>
+            <Name>{microName}</Name>
+            <Position>{microPosition}</Position>
+            {microTags.map((tag) => (
+              <Tags>{tag}</Tags>
+            ))}
+          </TextBox>
           <DateBox>
-            {weeklyJobs && (
-              <Moment fromNow ago>
-                {weeklyJobs[0].date}
-              </Moment>
-            )}
+            <Moment fromNow ago>
+              {microDate}
+            </Moment>
           </DateBox>
         </InfoBox>
         {leaveMicro ? (
@@ -187,10 +179,8 @@ function WeeklyJobBox() {
         )}
       </CardBox>
       <SlideDown>
-        {weeklyJobs && microToggle ? (
-          <MicroInfoBox microtoggle={microToggle}>
-            {weeklyJobs[0].contents}
-          </MicroInfoBox>
+        {microToggle ? (
+          <MicroInfoBox microtoggle={microToggle}>{microContents}</MicroInfoBox>
         ) : (
           ""
         )}
@@ -200,21 +190,17 @@ function WeeklyJobBox() {
           <ImgBox>
             <img src={zigzag} alt="kakaoBank-img" />
           </ImgBox>
-          {weeklyJobs && (
-            <TextBox>
-              <Name>{weeklyJobs[1].name}</Name>
-              <Position>{weeklyJobs[1].position}</Position>
-              {weeklyJobs[1].tags.map((tag) => (
-                <Tags>{tag}</Tags>
-              ))}
-            </TextBox>
-          )}
+          <TextBox>
+            <Name>{zigzagName}</Name>
+            <Position>{zigzagPosition}</Position>
+            {zigzagTags.map((tag) => (
+              <Tags>{tag}</Tags>
+            ))}
+          </TextBox>
           <DateBox>
-            {weeklyJobs && (
-              <Moment fromNow ago>
-                {weeklyJobs[1].date}
-              </Moment>
-            )}
+            <Moment fromNow ago>
+              {zigzagDate}
+            </Moment>
           </DateBox>
         </InfoBox>
         {leaveZizag ? (
@@ -224,9 +210,9 @@ function WeeklyJobBox() {
         )}
       </CardBox>
       <SlideDown>
-        {weeklyJobs && zigzagToggle ? (
+        {zigzagToggle ? (
           <ZigzagInfoBox zigzagtoggle={zigzagToggle}>
-            {weeklyJobs[1].contents}
+            {zigzagContents}
           </ZigzagInfoBox>
         ) : (
           ""
